@@ -1,7 +1,5 @@
 package com.kpi.it01.team1.lab12.models;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -54,7 +52,6 @@ public class Institute {
         return amount;
     }
 
-    @Nullable
     public Faculty getBiggestFaculty() {
         int maxStudents = 0;
         Faculty output = faculties.iterator().next();

@@ -5,10 +5,7 @@ import com.kpi.it01.team1.lab12.models.Institute;
 import com.kpi.it01.team1.lab12.models.Student;
 
 import java.io.InvalidObjectException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
@@ -48,8 +45,33 @@ public class Main {
         System.out.println("Greatest amount of students at " + kpi.getBiggestFaculty().getName());
         System.out.println("Students with average mark from 95 to 100:");
 
-        for (var student : kpi.getStudentsWithAverageMarkInRange(95, 100)) {
+        /*for (var student : kpi.getStudentsWithAverageMarkInRange(95, 100)) {
             System.out.println(student);
+        }*/
+
+        for (var entry : getStudentsWithAverageMark(95, 100, kpi.getFaculties()).entrySet()) {
+            for (var student : entry.getValue()) {
+                System.out.println("\t" + entry.getKey().getName() + ": " + student);
+            }
         }
+    }
+
+    public static HashMap<Faculty, HashSet<Student>> getStudentsWithAverageMark(float minMark, float maxMark,
+                                                                                HashSet<Faculty> faculties) {
+        HashMap<Faculty, HashSet<Student>> students = new HashMap<>();
+
+        for (var faculty : faculties) {
+            for (var student : faculty.getStudents()) {
+                if (student.getAverageMark() >= minMark && student.getAverageMark() <=maxMark) {
+                    if (!students.containsKey(faculty)) {
+                        students.put(faculty, new HashSet<>());
+                    }
+
+                    students.get(faculty).add(student);
+                }
+            }
+        }
+
+        return students;
     }
 }
