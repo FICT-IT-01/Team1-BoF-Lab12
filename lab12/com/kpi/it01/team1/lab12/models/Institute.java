@@ -1,5 +1,6 @@
 package com.kpi.it01.team1.lab12.models;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -46,7 +47,7 @@ public class Institute {
         int amount = 0;
 
         for (Iterator it = faculties.iterator(); it.hasNext();) {
-            amount += ((Faculty)it.next()).getStudents().size();
+            amount += ((Faculty)it.next()).getStudentsAmount();
         }
 
         return amount;
@@ -67,11 +68,11 @@ public class Institute {
         return output;
     }
 
-    public HashSet<Student> getStudentsWithAverageMarkInRange(Integer min, Integer max) {
-        var output = new HashSet<Student>();
+    public HashMap<Faculty, HashSet<Student>> getStudentsWithAverageMarkInRange(Integer min, Integer max) {
+        HashMap<Faculty, HashSet<Student>> output = new HashMap<>();
 
         for (var f : faculties) {
-            output.addAll(f.getStudentsWithAverageMarkInRange(min, max));
+            output.put(f, f.getStudentsWithAverageMarkInRange(min, max));
         }
 
         return output;
